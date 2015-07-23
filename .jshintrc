@@ -15,7 +15,7 @@
   "noarg": true,
   "node": true,
   "noempty": true,
-  "predef": ["describe", "it"],
+  "predef": ["define", "module", "describe", "it"],
   "quotmark": "single",
   "strict": true,
   "trailing": true,

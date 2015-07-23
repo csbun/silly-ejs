@@ -9,8 +9,16 @@ A simple and small implement for [EJS](http://www.embeddedjs.com/)
 
 ## Install
 
+### npm
+
+```sh
+npm i silly-ejs --save
 ```
-npm i silly-ejs
+
+### bower
+
+```sh
+bower install silly-ejs
 ```
 
 ## Usage
