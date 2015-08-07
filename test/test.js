@@ -3,6 +3,8 @@
 var assert = require('assert');
 var ejs = require('../index');
 
+console.log(ejs);
+
 var TPL = '<p><%= name %>\n' +
     '<% if (gender == "m")\n{ %>\n' +
     '\t<span class="g">male</span>\n'+
