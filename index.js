@@ -21,22 +21,25 @@
 }(this, function() {
     'use strict';
 
-    return function(str, data) {
-        /*jshint evil: true */
+    // 代码部分不在字符串内，不需要 `\"` 和 `\\`
+    function codeStringBack (code) {
+        return code.replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+    }
+
+    module.exports = function(str, data) {
         var func = new Function('_data',
             'var __tpl="";with(_data){__tpl+="' + // 用 `""` 包裹字符串
-            str.replace(/\\/g, '\\\\')
+            str.replace(/\\/g, '\\\\') // 字符串中的 `\` 要改成 `\\`
                 .replace(/"/g, '\\"') // 字符串中的 `"` 要改成 `\"`
                 .replace(/<%=([\s\S]+?)%>/g, function(match, code) {
-                    // 代码部分不在字符串内，不需要 `\"`
-                    return '"+' + code.replace(/\\"/g, '"') + '+"';
+                    return '"+' + codeStringBack(code) + '+"';
                 })
                 .replace(/<%([\s\S]+?)%>/g, function(match, code) {
-                    return '";' + code.replace(/\\"/g, '"') + '__tpl+="';
+                    return '";' + codeStringBack(code) + '__tpl+="';
                 })
                 .replace(/[\r\n\t]/g, ' ') +
             '"};return __tpl;');
-        /*jshint evil: false */
         return func ? func(data).replace(/\s+/g, ' ') : '';
     };
+
 }));
