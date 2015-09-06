@@ -28,4 +28,11 @@ describe('silly-ejs', function () {
         });
         assert.equal(res, expect);
     });
+    it('should return `&lt;&gt;` when `<>` in data', function () {
+        var expect = '&lt;p&gt;&lt;/p&gt;';
+        var res = ejs('<%=lt%>', {
+            lt: '<p></p>'
+        });
+        assert.equal(res, expect);
+    });
 });
