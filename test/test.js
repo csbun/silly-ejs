@@ -35,4 +35,22 @@ describe('silly-ejs', function () {
         });
         assert.equal(res, expect);
     });
+    it('test multiple data types', function () {
+        var DATA_STRING = 'str';
+        var DATA_FUNCTION = function () {alert('fn');};
+        var DATA_ARRAY = [1, 'two'];
+
+        var TPL = '<%=number%>;<%=string%>;<%=fn%>;<%=array%>;<%=obj%>';
+        var EXPECT = '12.3;' + DATA_STRING + ';' + DATA_FUNCTION.toString() + ';' + DATA_ARRAY.join(',') + ';[object Object]';
+
+        var res = ejs(TPL, {
+            number: 12.3,
+            string: DATA_STRING,
+            fn: DATA_FUNCTION,
+            array: DATA_ARRAY,
+            obj: { a: 1, b: 'two'}
+        });
+
+        assert.equal(res, EXPECT);
+    });
 });

@@ -1,7 +1,7 @@
 {
   "name": "silly-ejs",
   "main": "index.js",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "homepage": "https://github.com/csbun/silly-ejs",
   "authors": [
     "Hans Chan <chenhc@ucweb.com>"

@@ -31,8 +31,8 @@
                     // 代码部分不在字符串内，不需要 `\"` 和 `\\`
                     var translatedCode = code.replace(/\\"/g, '"').replace(/\\\\/g, '\\');
                     if (display) {
-                        // 显示数据，需要替换 < > 防止 XSS
-                        return '"+(' + translatedCode + ').replace(/</g, "&lt;").replace(/>/g, "&gt;")+"';
+                        // 显示数据，先转换成 string，再替换 < > 防止 XSS
+                        return '"+(""+' + translatedCode + ').replace(/</g, "&lt;").replace(/>/g, "&gt;")+"';
                     } else {
                         // 运行代码片段
                         return '";' + translatedCode + '__tpl+="';
