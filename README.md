@@ -21,6 +21,7 @@ npm i silly-ejs --save
 bower install silly-ejs
 ```
 
+
 ## Usage
 
 ```javascript
@@ -35,3 +36,22 @@ console.log(html);
 // '<div>Hans Chan(adult)</div>'
 ```
 
+## Custom delimiters
+
+Custom delimiters can be applied on a per-template basis, or globally:
+
+```javascript
+var ejs = require('silly-ejs');
+
+//Custom delimiters
+ejs.delimiters = '$';
+
+var tpl = '<div><$= name $><$ if (age > 17) { %>(adult)<% } $></div>';
+var data = {
+    name: 'Hans Chan',
+    age: 18
+};
+var html = ejs(tpl, data);
+console.log(html);
+// '<div>Hans Chan(adult)</div>'
+```
