@@ -35,6 +35,13 @@ describe('silly-ejs', function () {
         });
         assert.equal(res, expect);
     });
+    it('should return `<>` when `<>` in data while using `<%- %>`', function () {
+        var expect = '<p></p>';
+        var res = ejs('<%-lt%>', {
+            lt: expect
+        });
+        assert.equal(res, expect);
+    });
     it('test multiple data types', function () {
         var DATA_STRING = 'str';
         var DATA_FUNCTION = function () {alert('fn');};

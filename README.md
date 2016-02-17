@@ -26,15 +26,23 @@ bower install silly-ejs
 
 ```javascript
 var ejs = require('silly-ejs');
-var tpl = '<div><%= name %><% if (age > 17) { %>(adult)<% } %></div>';
+var tpl = '<div><%= name %><% if (age > 17) { %>(adult)<% } %> <%- html %></div>';
 var data = {
     name: 'Hans Chan',
-    age: 18
+    age: 18,
+    html: '<p>test</p>'
 };
 var html = ejs(tpl, data);
 console.log(html);
-// '<div>Hans Chan(adult)</div>'
+// '<div>Hans Chan(adult) <p>test</p></div>'
 ```
+
+## Features
+
+- Control flow with `<% %>`
+- Escaped output with `<%= %>`
+- Unescaped raw output with `<%- %>`
+- Custom delimiters (e.g., use `<$ $>` instead of `<% %>`)
 
 ## Custom delimiters
 

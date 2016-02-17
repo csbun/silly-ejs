@@ -1,6 +1,6 @@
 {
   "name": "silly-ejs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "simple and small implement for EJS",
   "main": "index.js",
   "scripts": {

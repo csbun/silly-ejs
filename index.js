@@ -9,11 +9,6 @@
         define(function() {
             return factory();
         });
-    } else if (typeof define === 'function' && define.cmd) {
-        // CMD
-        define(function(require, exports, module) {
-            module.exports = factory();
-        });
     } else {
         // Global Variables
         root.sillyEjs = factory();
@@ -23,7 +18,7 @@
 
     function ejs(str, data) {
         var delimiters = ejs.delimiters.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&'),
-            reg = new RegExp('<' + delimiters +'(=?)([\\s\\S]+?)' + delimiters +'>', 'g');
+            reg = new RegExp('<' + delimiters +'([=-]?)([\\s\\S]+?)' + delimiters +'>', 'g');
         var func = new Function('_data',
             'var __tpl="";with(_data){__tpl+="' + // 用 `""` 包裹字符串
             str.replace(/\\/g, '\\\\') // 字符串中的 `\` 要改成 `\\`
@@ -32,9 +27,12 @@
                 .replace(reg, function(match, display, code) {
                     // 代码部分不在字符串内，不需要 `\"` 和 `\\`
                     var translatedCode = code.replace(/\\"/g, '"').replace(/\\\\/g, '\\');
-                    if (display) {
-                        // 显示数据，先转换成 string，再替换 < > 防止 XSS
+                    if (display === '=') {
+                        // 显示数据：先转换成 string，再替换 < > 防止 XSS
                         return '"+(""+' + translatedCode + ').replace(/</g, "&lt;").replace(/>/g, "&gt;")+"';
+                    } else if (display === '-') {
+                        // 显示 HTML 片段：先转换成 string
+                        return '"+(""+' + translatedCode + ')+"';
                     } else {
                         // 运行代码片段
                         return '";' + translatedCode + '__tpl+="';
@@ -46,7 +44,5 @@
 
     ejs.delimiters = '%';
 
-
     return ejs;
-
 }));
